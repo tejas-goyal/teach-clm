@@ -1,0 +1,25 @@
+[project]
+name = "teachclm"
+version = "0.1.0"
+description = "Teacher-rewarded context editing for Context Language Models (11-768 research project)"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  # CLM harness, ICL loop and ContextBench adapter, pinned to the commit we read.
+  "clm @ git+https://github.com/facebookresearch/context-language-models.git@4831982",
+  # Editable checkout: clm_contextbench reads the paper's skills from the source tree.
+  "contextbench[tokenizer]",
+  "transformers>=4.57",
+  "modal>=1.5",
+  "openai>=1.76",
+  "python-dotenv>=1.0",
+]
+
+[tool.uv.sources]
+contextbench = { path = "third_party/ContextBench", editable = true }
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["teachclm*"]
